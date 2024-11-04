@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package sportfacility;
+
+import "google/protobuf/empty.proto";
+
+service AdService {
+  rpc Create (AdCreateRequest) returns (AdResponse);
+  rpc FindOne (AdFindOneRequest) returns (AdResponse);
+  rpc FindAll (google.protobuf.Empty) returns (AdListResponse);
+  rpc Update (AdUpdateRequest) returns (AdResponse);
+  rpc Delete (AdFindOneRequest) returns (AdResponse);
+}
+
+message Ad {
+  int32 id = 1;
+  string title = 2;
+  string content = 3;
+  string createdAt = 4;
+  string updatedAt = 5;
+}
+
+message AdCreateRequest {
+  string title = 1;
+  string content = 2;
+}
+
+message AdUpdateRequest {
+  int32 id = 1;
+  string title = 2;
+  string content = 3;
+}
+
+message AdFindOneRequest {
+  int32 id = 1;
+}
+
+message AdResponse {
+  Ad ad = 1;
+}
+
+message AdListResponse {
+  repeated Ad ads = 1;
+}

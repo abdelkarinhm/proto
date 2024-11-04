@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package user;
+
+// Definición de los mensajes de usuario y perfil
+message User {
+  string id = 1;
+  string username = 2;
+  string email = 3;
+  string rut = 4;
+  string password = 5;
+  string name = 6;
+  string phone = 7;
+  bool isActive = 8;
+  Profile profile = 9; // Mensaje Profile embebido
+}
+
+message Profile {
+  int32 id = 1;
+  string address = 2;
+  string userId = 3;
+}
+
+// Definición de las solicitudes
+message CreateRequest {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+  string name = 4;
+  string phone = 5;
+  string rut = 6;
+  Profile profile = 7;
+}
+
+message FindOneRequest {
+  // Campos opcionales
+  string id = 1;
+  string username = 2;
+  string email = 3;
+  string rut = 4;
+  string phone = 5;
+}
+
+message UpdateRequest {
+  // Campos opcionales
+  string id = 1;
+  string username = 2;
+  string email = 3;
+  string password = 4;
+  string rut = 5;
+  string name = 6;
+  string phone = 7;
+  bool isActive = 8;
+  Profile profile = 9;
+}
+
+message RemoveRequest {
+  // Campos opcionales
+  string id = 1;
+  string username = 2;
+  string email = 3;
+  string phone = 4;
+  string rut = 5;
+}
+
+message FindAllRequest {}
+
+// Definición de las respuestas
+message CreateResponse {
+  User user = 1;
+}
+
+message FindOneResponse {
+  User user = 1;
+}
+
+message UpdateResponse {
+  User user = 1;
+}
+
+message RemoveResponse {
+  User user = 1;
+}
+
+message FindAllResponse {
+  repeated User users = 1;
+}
+
+// Métodos del servicio
+service UserService {
+  rpc Create(CreateRequest) returns (CreateResponse);
+  rpc FindOne(FindOneRequest) returns (FindOneResponse);
+  rpc Update(UpdateRequest) returns (UpdateResponse);
+  rpc Remove(RemoveRequest) returns (RemoveResponse);
+  rpc FindAll(FindAllRequest) returns (FindAllResponse);
+}

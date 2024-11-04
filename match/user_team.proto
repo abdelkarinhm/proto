@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package match;
+
+message UserTeam {
+  int32 id = 1;
+  string userId = 2;
+  int32 teamId = 3;
+  string createdAt = 4;
+}
+
+message CreateUserTeamRequest {
+  string userId = 1;
+  int32 teamId = 2;
+}
+
+message GetUserTeamRequest {
+  int32 id = 1;
+}
+
+message UpdateUserTeamRequest {
+  int32 id = 1;
+  string userId = 2;
+  int32 teamId = 3;
+}
+
+message DeleteUserTeamRequest {
+  int32 id = 1;
+}
+
+message ListUserTeamsRequest {}
+
+message UserTeamResponse {
+  UserTeam userTeam = 1;
+}
+
+message ListUserTeamsResponse {
+  repeated UserTeam userTeams = 1;
+}
+
+service UserTeamService {
+  rpc Create(CreateUserTeamRequest) returns (UserTeamResponse);
+  rpc FindOne(GetUserTeamRequest) returns (UserTeamResponse);
+  rpc FindAll(ListUserTeamsRequest) returns (ListUserTeamsResponse);
+  rpc Update(UpdateUserTeamRequest) returns (UserTeamResponse);
+  rpc Delete(DeleteUserTeamRequest) returns (UserTeamResponse);
+}

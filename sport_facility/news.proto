@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package sportfacility;
+
+import "google/protobuf/empty.proto";
+
+service NewsService {
+  rpc Create (NewsCreateRequest) returns (NewsResponse);
+  rpc FindOne (NewsFindOneRequest) returns (NewsResponse);
+  rpc FindAll (google.protobuf.Empty) returns (NewsListResponse);
+  rpc Update (NewsUpdateRequest) returns (NewsResponse);
+  rpc Delete (NewsFindOneRequest) returns (NewsResponse);
+}
+
+message News {
+  int32 id = 1;
+  string title = 2;
+  string content = 3;
+  string createdAt = 4;
+  string updatedAt = 5;
+}
+
+message NewsCreateRequest {
+  string title = 1;
+  string content = 2;
+}
+
+message NewsUpdateRequest {
+  int32 id = 1;
+  string title = 2;
+  string content = 3;
+}
+
+message NewsFindOneRequest {
+  int32 id = 1;
+}
+
+message NewsResponse {
+  News news = 1;
+}
+
+message NewsListResponse {
+  repeated News news = 1;
+}

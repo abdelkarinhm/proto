@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package sportfacility;
+
+import "google/protobuf/empty.proto";
+
+service ImageService {
+  rpc Create (ImageCreateRequest) returns (ImageResponse);
+  rpc FindOne (ImageFindOneRequest) returns (ImageResponse);
+  rpc FindAll (google.protobuf.Empty) returns (ImageListResponse);
+  rpc Update (ImageUpdateRequest) returns (ImageResponse);
+  rpc Delete (ImageFindOneRequest) returns (ImageResponse);
+}
+
+message Image {
+  int32 id = 1;
+  string url = 2;
+  string description = 3;
+  string createdAt = 4;
+  string updatedAt = 5;
+}
+
+message ImageCreateRequest {
+  string url = 1;
+  string description = 2;
+}
+
+message ImageUpdateRequest {
+  int32 id = 1;
+  string url = 2;
+  string description = 3;
+}
+
+message ImageFindOneRequest {
+  int32 id = 1;
+}
+
+message ImageResponse {
+  Image image = 1;
+}
+
+message ImageListResponse {
+  repeated Image images = 1;
+}

@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package match;
+
+import "team.proto";
+import "whitelist.proto";
+
+message Match {
+  string id = 1;
+  string name = 2;
+  string modality = 3;
+  string level = 4;
+  string status = 5;
+  string sport = 6;
+  float cost = 7;
+  float commission = 8;
+  bool isFree = 9;
+  int32 teamSize = 10;
+  string createdAt = 11;
+  string updatedAt = 12;
+  repeated Team teams = 13;
+  repeated Whitelist whitelists = 14;  
+}
+
+message CreateMatchRequest {
+  string name = 1;
+  string modality = 2;
+  string level = 3;
+  string status = 4;
+  string sport = 5;
+  float cost = 6;
+  float commission = 7;
+  bool isFree = 8;
+  int32 teamSize = 9;
+  repeated CreateTeamRequest teams = 10;
+  repeated CreateWhitelistRequest whitelist = 11;
+}
+
+message GetMatchRequest {
+  string id = 1;
+}
+
+message UpdateMatchRequest {
+  string id = 1;
+  string name = 2;
+  string modality = 3;
+  string level = 4;
+  string status = 5;
+  string sport = 6;
+}
+
+message DeleteMatchRequest {
+  string id = 1;
+}
+
+message ListMatchesRequest {}
+
+message MatchResponse {
+  Match match = 1;
+}
+
+message ListMatchesResponse {
+  repeated Match matches = 1;
+}
+
+service MatchService {
+  rpc Create(CreateMatchRequest) returns (MatchResponse);
+  rpc FindOne(GetMatchRequest) returns (MatchResponse);
+  rpc FindAll(ListMatchesRequest) returns (ListMatchesResponse);
+  rpc Update(UpdateMatchRequest) returns (MatchResponse);
+  rpc Delete(DeleteMatchRequest) returns (MatchResponse);
+}

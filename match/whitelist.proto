@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package match;
+
+message Whitelist {
+  int64 id = 1;
+  string matchId = 2;
+  int64 userId = 3;
+  string joinedAt = 4;
+  bool notified = 5;
+}
+
+message CreateWhitelistRequest {
+  string matchId = 1;
+  int64 userId = 2;
+}
+
+message GetWhitelistRequest {
+  int64 id = 1;
+}
+
+message UpdateWhitelistRequest {
+  int64 id = 1;
+  string matchId = 2;
+  int64 userId = 3;
+  bool notified = 4;
+}
+
+message DeleteWhitelistRequest {
+  int64 id = 1;
+}
+
+message ListWhitelistsRequest {}
+
+message WhitelistResponse {
+  Whitelist waitlist = 1;
+}
+
+message ListWhitelistsResponse {
+  repeated Whitelist waitlists = 1;
+}
+
+service WhitelistService {
+  rpc Create(CreateWhitelistRequest) returns (WhitelistResponse);
+  rpc FindOne(GetWhitelistRequest) returns (WhitelistResponse);
+  rpc FindAll(ListWhitelistsRequest) returns (ListWhitelistsResponse);
+  rpc Update(UpdateWhitelistRequest) returns (WhitelistResponse);
+  rpc Delete(DeleteWhitelistRequest) returns (WhitelistResponse);
+}

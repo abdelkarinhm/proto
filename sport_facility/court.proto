@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package  sportfacility;
+
+import "google/protobuf/empty.proto";
+
+enum CourtSport {
+  FOOTBALL = 0;
+  BASKETBALL = 1;
+  TENNIS = 2;
+  PADEL = 3;
+  VOLLEYBALL = 4;
+  HOCKEY = 5;
+}
+
+enum CourtSurface {
+  GRASS = 0;
+  ARTIFICIAL_TURF = 1;
+  INDOOR = 2;
+  HARDWOOD = 3;
+  CONCRETE = 4;
+  ASPHALT = 5;
+  CLAY = 6;
+  HARD = 7;
+  CARPET = 8;
+  SAND = 9;
+  ICE = 10;
+}
+
+service CourtService {
+  rpc Create(CourtCreateRequest) returns (CourtResponse);
+  rpc FindOne(CourtFindOneRequest) returns (CourtResponse);
+  rpc FindAll(google.protobuf.Empty) returns (CourtListResponse);
+  rpc Update(CourtUpdateRequest) returns (CourtResponse);
+  rpc Delete(CourtFindOneRequest) returns (CourtResponse);
+}
+
+message Court {
+  int32 id = 1;
+  string sportFacilityId = 2;
+  CourtSurface surface = 3;
+  float length = 4;
+  float width = 5;
+  bool lighting = 6;
+  int32 seatingCapacity = 7;
+  CourtSport sport = 8;
+}
+
+message CourtResponse {
+  Court court = 1;
+}
+
+message CourtCreateRequest {
+  string sportFacilityId = 1;
+  CourtSurface surface = 2;
+  float length = 3;
+  float width = 4;
+  bool lighting = 5;
+  int32 seatingCapacity = 6;
+  CourtSport sport = 7;
+}
+
+message CourtUpdateRequest {
+  int32 id = 1;
+  string sportFacilityId = 2;
+  CourtSurface surface = 3;
+  float length = 4;
+  float width = 5;
+  bool lighting = 6;
+  int32 seatingCapacity = 7;
+  CourtSport sport = 8;
+}
+
+message CourtFindOneRequest {
+  int32 id = 1;
+}
+
+message CourtListResponse {
+  repeated Court courts = 1;
+}

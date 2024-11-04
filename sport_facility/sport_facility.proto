@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package sportfacility;
+
+import "court.proto";
+import "image.proto";
+import "news.proto";
+import "ad.proto";
+import "google/protobuf/empty.proto";
+
+service SportFacilityService {
+  rpc Create (SportFacilityCreateRequest) returns (SportFacilityResponse);
+  rpc FindOne (FindOneRequest) returns (SportFacilityResponse);
+  rpc FindAll (google.protobuf.Empty) returns (SportFacilityListResponse);
+  rpc Update (SportFacilityUpdateRequest) returns (SportFacilityResponse);
+  rpc Remove (FindOneRequest) returns (SportFacilityResponse);
+}
+
+message SportFacility {
+  string id = 1;
+  string name = 2;
+  string address = 3;
+  string city = 4;
+  string state = 5;
+  string postalCode = 6;
+  string country = 7;
+  string phoneNumber = 8;
+  string email = 9;
+  string website = 10;
+  string openingHours = 11;
+  float latitude = 12;
+  float longitude = 13;
+  string logoUrl = 14;
+  repeated Court courts = 15;
+  repeated Image images = 16;
+  repeated News news = 17;
+  repeated Ad ads = 18;
+  string userId = 19;
+}
+
+message SportFacilityCreateRequest {
+  string name = 1;
+  string address = 2;
+  string city = 3;
+  string state = 4;
+  string postalCode = 5;
+  string country = 6;
+  string phoneNumber = 7;
+  string email = 8;
+  string website = 9;
+  string openingHours = 10;
+  float latitude = 11;
+  float longitude = 12;
+  string logoUrl = 13;
+  repeated CourtCreateRequest courts = 14;
+  repeated ImageCreateRequest images = 15;
+  repeated NewsCreateRequest news = 16;
+  repeated AdCreateRequest ads = 17;
+  string userId = 18;
+}
+
+message SportFacilityUpdateRequest {
+  string id = 1;
+  string name = 2;
+  string address = 3;
+  string city = 4;
+  string state = 5;
+  string postalCode = 6;
+  string country = 7;
+  string phoneNumber = 8;
+  string email = 9;
+  string website = 10;
+  string openingHours = 11;
+  float latitude = 12;
+  float longitude = 13;
+  string logoUrl = 14;
+  repeated CourtUpdateRequest courts = 15;
+  repeated ImageUpdateRequest images = 16;
+  repeated NewsUpdateRequest news = 17;
+  repeated AdUpdateRequest ads = 18;
+  string userId = 19;
+}
+
+message FindOneRequest {
+  string id = 1;
+}
+
+message SportFacilityResponse {
+  SportFacility sportFacility = 1;
+}
+
+message SportFacilityListResponse {
+  repeated SportFacility sportFacilities = 1;
+}

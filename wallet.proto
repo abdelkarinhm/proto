@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package wallet;
+
+// Mensajes para la creación de una billetera
+message CreateRequest {
+  string userId = 1;
+}
+
+message CreateResponse {
+  string message = 1;
+}
+
+// Mensajes para obtener el saldo de la billetera
+message GetBalanceRequest {
+  string userId = 1;
+}
+
+message GetBalanceResponse {
+  double balance = 1;
+}
+
+// Mensajes para depositar fondos en la billetera
+message DepositRequest {
+  string userId = 1;
+  double amount = 2;
+  string externalId = 3;
+}
+
+message DepositResponse {
+  string message = 1;
+}
+
+// Mensajes para retirar fondos de la billetera
+message WithdrawRequest {
+  string userId = 1;
+  double amount = 2;
+  string externalId = 3;
+}
+
+message WithdrawResponse {
+  string message = 1;
+}
+
+// Servicio para manejar operaciones de billetera
+service WalletService {
+  rpc Create(CreateRequest) returns (CreateResponse);
+  rpc GetBalance(GetBalanceRequest) returns (GetBalanceResponse);
+  rpc Deposit(DepositRequest) returns (DepositResponse);
+  rpc Withdraw(WithdrawRequest) returns (WithdrawResponse);
+}
